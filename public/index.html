@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>TV Show Recs</h1>
+  <form>
+    <p>
+      <label for="tvShow">Recommended TV Show</label>
+      <input type="text" name="tvShow" id="tvShow">
+    </p>
+    <p>
+      <button id="addTVShow">Add TV Rec</button>
+    </p>
+  </form>
+  <ul id="tvShows"></ul>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+
+    axios.get('/api/tvShows')
+      .then((res) => {
+        const {data: tvShows, headers: ryan, config} = res
+        // const tvShows = res.data
+       console.log(tvShows)
+       console.log(ryan)
+       console.log(config)
+        tvShows.forEach(tvShow => {
+          let itemElem = document.createElement('li')
+          itemElem.textContent = tvShow
+          document.getElementById('tvShows').append(itemElem)
+        })
+      })
+      .catch(err => console.error(err))
+
+    document.getElementById('addTVShow').addEventListener('click', event => {
+      event.preventDefault()
+      let item = document.getElementById('tvShow').value
+      axios.post('/api/tvShows', { tvShow:item })
+        .then(() => {
+          let itemElem = document.createElement('li')
+          itemElem.textContent = item
+          document.getElementById('tvShows').append(itemElem)
+          document.getElementById('tvShows').value = ''
+        })
+        .catch(err => console.error(err))
+    })
+
+  </script>
+</body>
+</html>

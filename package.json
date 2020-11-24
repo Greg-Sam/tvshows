@@ -4,6 +4,7 @@
   "description": "- Request Params and Queries\r - RESTful Routing\r - Full Stack App\r - Intro to Heroku\r - Installation Check",
   "main": "server.js",
   "scripts": {
+    "start":"node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
